@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Puzzle</title>
+        <meta charset="UTF-8">        
+        <meta name="viewport" 
+              content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />       
+        <link href="styles.css" rel="stylesheet" />
+        
+    </head>
+    <body> 
+    <header>
+      <h1>15 Puzzle</h1>
+    </header>
+    <div id="pohja"></div>
+    <div id="timeHeader">Time
+      <span id="time"></span>
+    </div>
+    <div id="commandText"></div>
+    <table id="choices">
+    </table>
+    <div>
+      <div>
+        <button id="newgame" class="buttons">New Game</button>
+      </div>
+      <div>
+        <button id="save" class="buttons">save</button>
+        <button id="load" class="buttons">load</button>
+      </div>
+    </div>               
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" 
+                integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" 
+                crossorigin="anonymous">
+        </script>
+        <script src="puzzle.js"></script>
+    </body>
+</html>
