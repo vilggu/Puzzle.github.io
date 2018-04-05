@@ -1,9 +1,8 @@
+// Javascript game 15 puzzle / g-006
+// Aim of the game is to get all tiles in numerical order
+// You can use save game to save the game state.
 
 $(document).ready(function(){
-
-
-    //var lataustesti ={"messageType":"SAVE","gameState":{"score":3,"boardstate":["10","15","5","","9","4","7","11","1","2","6","13","8","14","12","3"]}}
-
 
     // Counter for time
     var timer = 0;
@@ -57,13 +56,6 @@ $(document).ready(function(){
             
         }
 
-        //
-        var voita = $("<button></button>");
-        voita.addClass("voitto");
-        voita.text("voita");
-        lauta.append(voita);
-
-        //
         
         
         $("#pohja").append(lauta);
@@ -121,7 +113,7 @@ $(document).ready(function(){
                 
             }
         }
-        //console.log(numerot);
+       
         
         // set all unmovable
         setUnmovable();
@@ -248,11 +240,14 @@ $(document).ready(function(){
         if(voitto===true){
             clearInterval(counter);
 
-            alert("You won! Life spent: "+timer +" seconds");
+            pisteet =100000*(1/timer)
+            pisteetint = Math.ceil(pisteet)
+            alert("You won! Life spent: "+timer +" seconds. Score: "+pisteetint+".");
+
 
             var msg={
                 messageType: "SCORE",
-                score: timer
+                score: pisteet
             };
 
             window.parent.postMessage(msg, "*");
@@ -260,15 +255,6 @@ $(document).ready(function(){
         }
     }
 
-    function instantWin(){
-        
-        for(var i =1; i<=16; i++){
-            var laatta = $("."+i);
-            laatta.text(i);
-         
-        }
-        checkWin();
-    }
 
     // Function for setting the counter for time
     function laskuri(){
@@ -327,6 +313,8 @@ $(document).ready(function(){
         lataustesti = msg;
         clearInterval(counter);
 
+        // send js object to parentframe
+        // object has attribute gamestate that contains score and board state
         window.parent.postMessage(msg, "*");
         
      
@@ -344,22 +332,22 @@ $(document).ready(function(){
 
         window.parent.postMessage(msg, "*");
 
-
-        //console.log(lataustesti.gameState);
-        //loadState(lataustesti.gameState);
-
     
         
     });
 
+    // Listener for getting the saved state back to game
     window.addEventListener("message", receiveMessage);
 
+    // Function for setting the saved data
     function receiveMessage(event){
-        console.log("message received");
-        console.log(event.data);
-        loadState(JSON.parse(event.data).gameState);
+        if(event.data.messageType=="ERROR"){
+            alert(event.data.info);
+        }else{
+            loadState(event.data.gameState);
+             alert("Game loaded!");
+        }
+        
     }
-
-
 
 })
